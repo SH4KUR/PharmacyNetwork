@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using PharmacyNetwork.ApplicationCore.Interfaces;
 using PharmacyNetwork.Infrastructure.Data;
 using  PharmacyNetwork.Infrastructure.Identity;
+using PharmacyNetwork.Infrastructure.Logging;
 
 namespace PharmacyNetwork.Web
 {
@@ -33,6 +35,7 @@ namespace PharmacyNetwork.Web
             CreateIdentityIfNotCreated(services);
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
+            services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
             // Add Identity DbContext
             services.AddDbContext<AppIdentityDbContext>(options =>
@@ -58,17 +61,17 @@ namespace PharmacyNetwork.Web
         private static void CreateIdentityIfNotCreated(IServiceCollection services)
         {
             var sp = services.BuildServiceProvider();
-            using (var scope = sp.CreateScope())
+            using var scope = sp.CreateScope();
+
+            var existingUserManager = scope.ServiceProvider
+                .GetService<UserManager<ApplicationUser>>();
+
+            if (existingUserManager == null)
             {
-                var existingUserManager = scope.ServiceProvider
-                    .GetService<UserManager<ApplicationUser>>();
-                if (existingUserManager == null)
-                {
-                    services.AddIdentity<ApplicationUser, IdentityRole>()
-                        .AddDefaultUI()
-                        .AddEntityFrameworkStores<AppIdentityDbContext>()
-                        .AddDefaultTokenProviders();
-                }
+                services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddDefaultUI()
+                    .AddEntityFrameworkStores<AppIdentityDbContext>()
+                    .AddDefaultTokenProviders();
             }
         }
 
