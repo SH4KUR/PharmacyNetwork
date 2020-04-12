@@ -21,7 +21,7 @@ namespace PharmacyNetwork.Infrastructure.Data
             return await Context.Set<T>().FindAsync(id);
         }
 
-        public async Task<List<T>> ListAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
             return await Context.Set<T>().ToListAsync();
         }

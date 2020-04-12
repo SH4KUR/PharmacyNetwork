@@ -9,7 +9,7 @@ namespace PharmacyNetwork.ApplicationCore.Interfaces
     {
         Task<T> GetByIdAsync(int id);
 
-        Task<List<T>> ListAllAsync();
+        Task<List<T>> GetAllAsync();
 
         //Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec) TODO: clear
 

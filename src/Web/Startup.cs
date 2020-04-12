@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -43,7 +44,16 @@ namespace PharmacyNetwork.Web
 
             //Add PharmacyNetwork DbContext
             services.AddDbContext<PharmacyNetworkContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("PharmacyNetworkConnection")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("PharmacyNetworkConnection"),
+                    sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                            maxRetryCount: 5,
+                            maxRetryDelay: TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null);
+                    });
+            });
 
             services.AddControllersWithViews();
             services.AddMvc();
