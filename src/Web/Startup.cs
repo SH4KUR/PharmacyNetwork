@@ -44,16 +44,7 @@ namespace PharmacyNetwork.Web
 
             //Add PharmacyNetwork DbContext
             services.AddDbContext<PharmacyNetworkContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("PharmacyNetworkConnection"),
-                    sqlServerOptionsAction: sqlOptions =>
-                    {
-                        sqlOptions.EnableRetryOnFailure(
-                            maxRetryCount: 5,
-                            maxRetryDelay: TimeSpan.FromSeconds(30),
-                            errorNumbersToAdd: null);
-                    });
-            });
+                options.UseSqlServer(Configuration.GetConnectionString("PharmacyNetworkConnection")));
 
             services.AddControllersWithViews();
             services.AddMvc();
@@ -63,6 +54,8 @@ namespace PharmacyNetwork.Web
             services.AddHttpContextAccessor();
 
             services.AddDistributedMemoryCache();
+
+            services.AddMemoryCache();
 
             // Inject an implementation of ISwaggerProvider with defaulted settings applied
             services.AddSwaggerGen();
@@ -99,10 +92,13 @@ namespace PharmacyNetwork.Web
 
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            //app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

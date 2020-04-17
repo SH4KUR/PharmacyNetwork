@@ -27,10 +27,10 @@ namespace PharmacyNetwork.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseLazyLoadingProxies();
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-M3LJRB3;Initial Catalog=PharmacyNetwork;Integrated Security=True");
+                //optionsBuilder.UseSqlServer("Data Source=DESKTOP-M3LJRB3;Initial Catalog=PharmacyNetwork;Integrated Security=True");
             }
         }
 

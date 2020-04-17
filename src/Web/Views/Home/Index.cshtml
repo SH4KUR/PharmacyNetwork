@@ -13,7 +13,7 @@
     @foreach (var item in Model)
     {
         <p>
-            @item.MedItemName
+            @item.MedItemName | @item.Firm.FirmName
         </p>
     }
 </div>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,11 @@ namespace PharmacyNetwork.Infrastructure.Data
             return await Context.Set<T>().ToListAsync();
         }
 
+        public async Task<List<T>> ListAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).ToListAsync();
+        }
+
         public async Task<T> AddAsync(T entity)
         {
             await Context.Set<T>().AddAsync(entity);
@@ -44,6 +50,11 @@ namespace PharmacyNetwork.Infrastructure.Data
         {
             Context.Set<T>().Remove(entity);
             await Context.SaveChangesAsync();
+        }
+
+        private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+        {
+            return SpecificationEvaluator<T>.GetQuery(Context.Set<T>().AsQueryable(), spec);
         }
     }
 }
