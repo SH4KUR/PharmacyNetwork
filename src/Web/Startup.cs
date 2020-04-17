@@ -41,10 +41,19 @@ namespace PharmacyNetwork.Web
             // Add Identity DbContext
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
-
+            
             //Add PharmacyNetwork DbContext
             services.AddDbContext<PharmacyNetworkContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("PharmacyNetworkConnection")));
+                {
+                    options.UseSqlServer(Configuration.GetConnectionString("PharmacyNetworkConnection"),
+                    sqlServerOptionsAction: sqlOption =>
+                    {
+                        sqlOption.EnableRetryOnFailure(
+                            maxRetryCount: 5,
+                            maxRetryDelay: TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null);
+                    });
+                });
 
             services.AddControllersWithViews();
             services.AddMvc();
