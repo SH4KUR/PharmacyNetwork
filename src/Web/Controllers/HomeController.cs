@@ -11,7 +11,7 @@ namespace PharmacyNetwork.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IAsyncRepository<MedicalItem> _repository;
+        private readonly IAsyncRepository<MedicalItem> _repository;
         private readonly IAppLogger<HomeController> _logger;
 
         public HomeController(IAsyncRepository<MedicalItem> repository, IAppLogger<HomeController> logger)
