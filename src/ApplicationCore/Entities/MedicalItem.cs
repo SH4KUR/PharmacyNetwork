@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PharmacyNetwork.ApplicationCore.Entities
 {
@@ -14,9 +15,12 @@ namespace PharmacyNetwork.ApplicationCore.Entities
         public int MedItemId { get; set; }
         public int FirmId { get; set; }
         public int CategId { get; set; }
+        [Display(Name = "Название")]
         public string MedItemName { get; set; }
+        [Display(Name = "Описание")]
         public string MedItemDescrip { get; set; }
         public decimal MedItemPrice { get; set; }
+        [Display(Name = "Цена")]
         public decimal? MedItemPriceMarkup { get; set; }
 
         public virtual ProductCategory Categ { get; set; }

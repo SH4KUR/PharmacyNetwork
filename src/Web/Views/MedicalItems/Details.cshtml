@@ -1,0 +1,55 @@
+﻿@model PharmacyNetwork.ApplicationCore.Entities.MedicalItem
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>MedicalItem</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MedItemName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MedItemName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MedItemDescrip)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MedItemDescrip)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MedItemPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MedItemPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MedItemPriceMarkup)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MedItemPriceMarkup)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Categ)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Categ.CategName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Firm)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Firm.FirmAddress)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MedItemId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

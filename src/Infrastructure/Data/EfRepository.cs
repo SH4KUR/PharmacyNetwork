@@ -17,7 +17,7 @@ namespace PharmacyNetwork.Infrastructure.Data
             Context = context;
         }
 
-        public async Task<T> GetByIdAsync(int id) //TODO: was added virtual in eShopWeb
+        public async Task<T> GetByIdAsync(int? id) //TODO: was added virtual in eShopWeb
         {
             return await Context.Set<T>().FindAsync(id);
         }

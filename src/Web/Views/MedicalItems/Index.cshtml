@@ -1,0 +1,65 @@
+﻿@using PharmacyNetwork.ApplicationCore.Constants
+@model IEnumerable<PharmacyNetwork.ApplicationCore.Entities.MedicalItem>
+
+@{
+    ViewData["Title"] = "Медицинские товары";
+    Layout = "_Layout";
+}
+
+<h1>Список медицинских товаров</h1>
+
+<p>
+    <a asp-action="Create">Добавить новый товар</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MedItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedItemDescrip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedItemPriceMarkup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categ)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Firm)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedItemDescrip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedItemPriceMarkup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categ.CategName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firm.FirmAddress)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.MedItemId">Детально</a>
+
+                @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.MedItemId">Изменить</a> 
+                    <a asp-action="Delete" asp-route-id="@item.MedItemId">Удалить</a>
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

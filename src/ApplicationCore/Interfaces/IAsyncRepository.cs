@@ -7,7 +7,7 @@ namespace PharmacyNetwork.ApplicationCore.Interfaces
 {
     public interface IAsyncRepository<T>
     {
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(int? id);
 
         Task<List<T>> GetAllAsync();
 
