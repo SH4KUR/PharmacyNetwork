@@ -9,57 +9,72 @@
 <h1>Список медицинских товаров</h1>
 
 <p>
-    <a asp-action="Create">Добавить новый товар</a>
+    <a asp-action="Create" class="btn btn-outline-success btn-lg">Добавить новый товар</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MedItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MedItemDescrip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MedItemPriceMarkup)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categ)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Firm)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MedItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MedItemDescrip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MedItemPriceMarkup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categ.CategName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Firm.FirmAddress)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.MedItemId">Детально</a>
 
-                @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
-                {
-                    <a asp-action="Edit" asp-route-id="@item.MedItemId">Изменить</a> 
-                    <a asp-action="Delete" asp-route-id="@item.MedItemId">Удалить</a>
-                }
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+<link href="lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
+
+<div class="table-responsive">
+    <table data-toggle="table"
+           data-show-button-text="true"
+           data-show-search-clear-button="true"
+           data-filter-control="true"
+           data-classes="table table-hover table-sm"
+           data-pagination="true"
+           data-pagination-loop="false"
+           data-page-list="[10, 25, 50, 100, 200, All]"
+           data-locale="ru-RU">
+        <thead>
+            <tr>
+                <th scope="col" data-sortable="true" data-filter-control="input" data-field="MedItemName">
+                    @Html.DisplayNameFor(model => model.MedItemName)
+                </th>
+                <th scope="col" data-sortable="true" data-field="MedItemPriceMarkup">
+                    @Html.DisplayNameFor(model => model.MedItemPriceMarkup)
+                </th>
+                <th scope="col" data-sortable="true" data-filter-control="input" data-field="Categ">
+                    @Html.DisplayNameFor(model => model.Categ)
+                </th>
+                <th scope="col" data-sortable="true" data-filter-control="input" data-field="Firm">
+                    @Html.DisplayNameFor(model => model.Firm)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MedItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MedItemPriceMarkup)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categ.CategName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Firm.FirmName)
+                    </td>
+                    <td>
+                        <a asp-action="Details" class="btn btn-outline-info btn-block" asp-route-id="@item.MedItemId">Детально</a>
+
+                        @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+                        {
+                            <a asp-action="Edit" class="btn btn-outline-success btn-sm btn-block" asp-route-id="@item.MedItemId">Изменить</a>
+                            <a asp-action="Delete" class="btn btn-outline-danger btn-sm btn-block" asp-route-id="@item.MedItemId">Удалить</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="lib/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script src="lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+}

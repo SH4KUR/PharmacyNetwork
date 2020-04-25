@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using PharmacyNetwork.Infrastructure.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -20,7 +24,10 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a class="nav-link text-light" asp-area="" asp-controller="MedicalItems" asp-action="Index">Медицинские товары</a>
+                            }
                         </li>
                     </ul>
                 </div>
