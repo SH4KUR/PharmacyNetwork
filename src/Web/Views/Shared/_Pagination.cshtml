@@ -1,0 +1,23 @@
+﻿@model PharmacyNetwork.Web.ViewModels.PaginationViewModel
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+
+        <li class="@Model.Previous">
+            <a class="page-link" asp-route-pageId="@(Model.ActualPage - 1)">Previous</a>
+        </li>
+
+        @*<li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>*@
+        
+        <li class="page-item"><span class="page-link" href="#">@(Model.ActualPage + 1)</span></li>
+
+        <li class="@Model.Next">
+            <a class="page-link" asp-route-pageId="@(Model.ActualPage + 1)">Next</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">(Показано @Model.ItemsPerPage из @Model.TotalItems)</a>
+        </li>
+    </ul>
+</nav>

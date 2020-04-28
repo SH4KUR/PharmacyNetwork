@@ -1,6 +1,7 @@
 ﻿@using System.Threading
 @using PharmacyNetwork.ApplicationCore.Constants
-@model IEnumerable<PharmacyNetwork.ApplicationCore.Entities.MedicalItem>
+@*@model IEnumerable<PharmacyNetwork.ApplicationCore.Entities.MedicalItem>*@
+@model PharmacyNetwork.Web.ViewModels.MedicalItemsViewModel
 
 @{
     ViewData["Title"] = "Медицинские товары";
@@ -14,7 +15,7 @@
 </p>
 
 <div class="row row-cols-1 row-cols-md-3">
-    @foreach (var item in Model)
+    @foreach (var item in Model.MedicalItems)
     {
         <div class="col mb-4">
             <div class="card border-secondary h-100">
@@ -30,7 +31,7 @@
                     <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Firm.FirmName)</h6>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">@Html.DisplayFor(modelItem => item.Categ.CategName)</li>
-                        <li class="list-group-item">Цена: @Html.DisplayFor(modelItem => item.MedItemPriceMarkup)</li>
+                        <li class="list-group-item">Цена: @Html.DisplayFor(modelItem => item.MedItemPriceMarkup) грн</li>
                     </ul>
                     <a asp-action="Details" class="btn btn-info btn-block" asp-route-id="@item.MedItemId">Подробнее</a>
                 </div>
@@ -38,6 +39,8 @@
         </div>
     }
 </div>
+
+<partial name="_Pagination" for="Pagination"/>
 
 @section Scripts {
     

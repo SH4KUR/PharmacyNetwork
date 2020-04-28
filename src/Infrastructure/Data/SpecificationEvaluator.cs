@@ -42,6 +42,13 @@ namespace PharmacyNetwork.Infrastructure.Data
                 query = query.GroupBy(specification.GroupBy).SelectMany(x => x);
             }
 
+            // Apply paging if enabled
+            if (specification.IsPagingEnabled)
+            {
+                query = query.Skip(specification.Skip)
+                    .Take(specification.Take);
+            }
+
             return query;
         }
     }

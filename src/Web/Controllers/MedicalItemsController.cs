@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PharmacyNetwork.ApplicationCore.Entities;
 using PharmacyNetwork.ApplicationCore.Interfaces;
+using PharmacyNetwork.ApplicationCore.Specifications;
 using PharmacyNetwork.Infrastructure.Data;
+using PharmacyNetwork.Web.Features.MedicalItems;
+using PharmacyNetwork.Web.ViewModels;
 
 namespace PharmacyNetwork.Web.Controllers
 {
@@ -16,17 +20,27 @@ namespace PharmacyNetwork.Web.Controllers
     public class MedicalItemsController : Controller
     {
         private readonly IAsyncRepository<MedicalItem> _repository;
+        private IMediator Mediator { get; }
 
-        public MedicalItemsController(IAsyncRepository<MedicalItem> repository)
+        public MedicalItemsController(IAsyncRepository<MedicalItem> repository, IMediator mediator)
         {
             _repository = repository;
+            Mediator = mediator;
         }
 
+        //// GET: MedicalItems
+        //public async Task<IActionResult> Index()
+        //{
+        //    var medicalItems = await _repository.GetAllAsync();
+        //    return View(medicalItems);
+        //}
+
         // GET: MedicalItems
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(MedicalItemsViewModel medicalItems, int? pageId)
         {
-            var medicalItems = await _repository.GetAllAsync();
-            return View(medicalItems);
+            var medicalItemsViewModel = await Mediator.Send(new GetMedicalItems(pageId ?? 0));  // TODO: Add filter in medicalItems
+
+            return View(medicalItemsViewModel);
         }
 
         // GET: MedicalItems/Details/5

@@ -1,4 +1,5 @@
 using System;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -58,6 +59,8 @@ namespace PharmacyNetwork.Web
             services.AddControllersWithViews();
             services.AddMvc();
             services.AddRazorPages();
+
+            services.AddMediatR(typeof(Startup));
 
             services.AddResponseCaching();
             services.AddHttpContextAccessor();
