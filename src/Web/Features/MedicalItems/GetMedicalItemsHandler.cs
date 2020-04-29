@@ -13,7 +13,7 @@ namespace PharmacyNetwork.Web.Features.MedicalItems
 {
     public class GetMedicalItemsHandler : IRequestHandler<GetMedicalItems, MedicalItemsViewModel>
     {
-        private IAsyncRepository<MedicalItem> _repository;
+        private readonly IAsyncRepository<MedicalItem> _repository;
 
         public GetMedicalItemsHandler(IAsyncRepository<MedicalItem> repository)
         {

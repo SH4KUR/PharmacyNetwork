@@ -28,17 +28,10 @@ namespace PharmacyNetwork.Web.Controllers
             Mediator = mediator;
         }
 
-        //// GET: MedicalItems
-        //public async Task<IActionResult> Index()
-        //{
-        //    var medicalItems = await _repository.GetAllAsync();
-        //    return View(medicalItems);
-        //}
-
         // GET: MedicalItems
         public async Task<IActionResult> Index(MedicalItemsViewModel medicalItems, int? pageId)
         {
-            var medicalItemsViewModel = await Mediator.Send(new GetMedicalItems(pageId ?? 0));  // TODO: Add filter in medicalItems
+            var medicalItemsViewModel = await Mediator.Send(new GetMedicalItems(pageId ?? 0));  // TODO: Add filter for medicalItems
 
             return View(medicalItemsViewModel);
         }

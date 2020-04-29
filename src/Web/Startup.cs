@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +56,8 @@ namespace PharmacyNetwork.Web
                             errorNumbersToAdd: null);
                     });
                 });
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllersWithViews();
             services.AddMvc();

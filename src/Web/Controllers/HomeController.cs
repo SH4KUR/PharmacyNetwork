@@ -11,22 +11,9 @@ namespace PharmacyNetwork.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IAsyncRepository<MedicalItem> _repository;
-        private readonly IAppLogger<HomeController> _logger;
-
-        public HomeController(IAsyncRepository<MedicalItem> repository, IAppLogger<HomeController> logger)
+        public ViewResult Index()
         {
-            _repository = repository;
-            _logger = logger;
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            var list = await _repository.GetAllAsync();
-
-            _logger.LogInformation("Medical Items on view");
-
-            return View(list);
+            return View();
         }
     }
 }
