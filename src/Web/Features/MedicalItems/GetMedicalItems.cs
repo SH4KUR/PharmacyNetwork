@@ -10,10 +10,16 @@ namespace PharmacyNetwork.Web.Features.MedicalItems
     public class GetMedicalItems : IRequest<MedicalItemsViewModel>
     {
         public int PageIndex { get; set; }
-     
-        public GetMedicalItems(int pageIndex)
+
+        public int? CategId { get; set; }
+
+        public int? FirmId { get; set; }
+
+        public GetMedicalItems(int pageIndex, int? categId, int? firmId)
         {
             PageIndex = pageIndex;
+            CategId = categId;
+            FirmId = firmId;
         }
     }
 }

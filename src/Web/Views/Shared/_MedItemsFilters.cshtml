@@ -1,0 +1,12 @@
+﻿@model PharmacyNetwork.Web.ViewModels.MedicalItemsViewModel
+
+<h5>Фильтр</h5>
+<form asp-action="Index">
+    <label class="text-dark">Категория</label>
+    <select asp-for="@Model.CategoryFilterApplied" class="form-control" asp-items="@Model.Categories"></select>
+    
+    <label class="text-dark">Фирма</label>
+    <select asp-for="@Model.FirmFilterApplied" class="form-control" asp-items="@Model.Firms"></select>
+
+    <input type="submit" value="Применить" class="btn mt-2 btn-secondary btn-block" />
+</form>
