@@ -1,5 +1,4 @@
-﻿@using System.Threading
-@using PharmacyNetwork.ApplicationCore.Constants
+﻿@using PharmacyNetwork.ApplicationCore.Constants
 @model PharmacyNetwork.Web.ViewModels.MedicalItemsViewModel
 
 @{
@@ -7,59 +6,54 @@
     Layout = "_Layout";
 }
 
-<div class="row">
-    <div class="col-2">
-        @await Html.PartialAsync("PartialViews/_MedItemsFilters", Model)
-    </div>
-    <div class="col-9">
-        <h1>Список медицинских товаров</h1>
+@if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+{
+    <a asp-action="Create" class="btn btn-outline-success btn-lg">Добавить новый товар</a>
+}
 
-        <p>
-            <a asp-action="Create" class="btn btn-outline-success btn-lg">Добавить новый товар</a>
-        </p>
+<h1 class="mb-3 text-center">Список медицинских товаров</h1>
 
-        @if (Model.MedicalItems.Any())
-        {
-            <div class="row row-cols-1 row-cols-md-3">
-                @foreach (var item in Model.MedicalItems)
-                {
-
-                    <div class="col mb-4">
-                        <div class="card border-secondary h-100">
-                            @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
-                            {
-                                <div class="card-header">
-                                    <a asp-action="Edit" class="btn btn-success btn-sm" asp-route-id="@item.MedItemId">Изменить</a>
-                                    <a asp-action="Delete" class="btn btn-danger btn-sm" asp-route-id="@item.MedItemId">Удалить</a>
-                                </div>
-                            }
-                            <div class="card-body text-dark">
-                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.MedItemName)</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Firm.FirmName)</h6>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">@Html.DisplayFor(modelItem => item.Categ.CategName)</li>
-                                    <li class="list-group-item">Цена: @Html.DisplayFor(modelItem => item.MedItemPriceMarkup) грн</li>
-                                </ul>
-                                <a asp-action="Details" class="btn btn-info btn-block" asp-route-id="@item.MedItemId">Подробнее</a>
+@await Html.PartialAsync("PartialViews/_MedItemsFilters", Model)
+    
+    @if (Model.MedicalItems.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-3">
+            @foreach (var item in Model.MedicalItems)
+            {
+                <div class="col mb-4">
+                    <div class="card border-secondary h-100">
+                        @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+                        {
+                            <div class="card-header">
+                                <a asp-action="Edit" class="btn btn-success btn-sm" asp-route-id="@item.MedItemId">Изменить</a>
+                                <a asp-action="Delete" class="btn btn-danger btn-sm" asp-route-id="@item.MedItemId">Удалить</a>
                             </div>
+                        }
+                        <div class="card-body text-dark">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.MedItemName)</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Firm.FirmName)</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">@Html.DisplayFor(modelItem => item.Categ.CategName)</li>
+                                <li class="list-group-item">Цена: @Html.DisplayFor(modelItem => item.MedItemPriceMarkup) грн</li>
+                            </ul>
+                            <a asp-action="Details" class="btn btn-info btn-block" asp-route-id="@item.MedItemId">Подробнее</a>
                         </div>
                     </div>
-                }
-            </div>
-        }
-        else
-        {
-            <div class="row m-5">
-                <div class="col">
-                    <h1 class="text-dark text-center">РЕЗУЛЬТАТОВ НЕ НАЙДЕНО!</h1>
                 </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="row m-5">
+            <div class="col">
+                <h1 class="text-dark text-center">РЕЗУЛЬТАТОВ НЕ НАЙДЕНО!</h1>
             </div>
-        }
-
-        @await Html.PartialAsync("PartialViews/_Pagination", Model.Pagination)
+        </div>
+    }
     
-    </div>
-</div>
+    @await Html.PartialAsync("PartialViews/_Pagination", Model.Pagination)
+
 
 @section Scripts {
 

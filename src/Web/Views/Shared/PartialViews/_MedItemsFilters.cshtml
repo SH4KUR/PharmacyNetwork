@@ -1,12 +1,18 @@
 ﻿@model PharmacyNetwork.Web.ViewModels.MedicalItemsViewModel
 
-<h5>Фильтр</h5>
 <form asp-action="Index">
-    <label class="text-dark">Категория</label>
-    <select asp-for="@Model.CategoryFilterApplied" class="form-control" asp-items="@Model.Categories"></select>
-    
-    <label class="text-dark">Фирма</label>
-    <select asp-for="@Model.FirmFilterApplied" class="form-control" asp-items="@Model.Firms"></select>
+    <div class="form-group row">
+        <label class="col-form-label col-lg-2">Категория</label>
+        <div class="col-lg-5">
+            <select asp-for="@Model.CategoryFilterApplied" class="form-control" asp-items="@Model.Categories"></select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-lg-2">Фирма</label>
+        <div class="col-lg-5">
+            <select asp-for="@Model.FirmFilterApplied" class="form-control" asp-items="@Model.Firms"></select>
+        </div>
+    </div>
 
-    <input type="submit" value="Применить" class="btn mt-2 btn-secondary btn-block" />
+    <input type="submit" value="Применить" class="btn btn-secondary mb-3"/>
 </form>

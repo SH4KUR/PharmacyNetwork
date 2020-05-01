@@ -38,23 +38,11 @@
         </nav>
     </header>
 
-    @if ((ViewContext.RouteData.Values["Controller"]?.ToString() == "MedicalItems")
-       && ((ViewContext.RouteData.Values["Action"]?.ToString() == "Index")))
-    {
-        <div class="container-fluid">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
-    } 
-    else
-    {
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
-    }
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
 
     <footer class="border-top footer text-secondary bg-dark">
 
