@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PharmacyNetwork.ApplicationCore.Constants;
 using PharmacyNetwork.ApplicationCore.Entities;
 using PharmacyNetwork.ApplicationCore.Interfaces;
 using PharmacyNetwork.ApplicationCore.Specifications;
@@ -29,9 +30,9 @@ namespace PharmacyNetwork.Web.Controllers
         }
 
         // GET: MedicalItems
-        public async Task<IActionResult> Index(MedicalItemsViewModel medicalItemsViewModel, int? pageId)
+        public async Task<IActionResult> Index(MedicalItemsListViewModel medicalItemsViewModel, int? pageId)
         {
-            var medicalItems = await Mediator.Send(new GetMedicalItems(pageId ?? 0, medicalItemsViewModel.CategoryFilterApplied,
+            var medicalItems = await Mediator.Send(new GetMedicalItemsList(pageId ?? 0, medicalItemsViewModel.CategoryFilterApplied,
                 medicalItemsViewModel.FirmFilterApplied)); 
 
             return View(medicalItems);
@@ -40,19 +41,22 @@ namespace PharmacyNetwork.Web.Controllers
         // GET: MedicalItems/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) 
+                return NotFound();
 
             var medicalItem = await _repository.GetByIdAsync(id);
-            if (medicalItem == null) return NotFound();
+            if (medicalItem == null) 
+                return NotFound();
 
             return View(medicalItem);
         }
 
+        [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
         // GET: MedicalItems/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            //ViewData["FirmId"] = new SelectList(_context.Firm, "FirmId", "FirmAddress");
-            return View();
+            var medicalItemViewModel = await Mediator.Send(new GetMedicalItem());
+            return View(medicalItemViewModel);
         }
 
         //// POST: MedicalItems/Create

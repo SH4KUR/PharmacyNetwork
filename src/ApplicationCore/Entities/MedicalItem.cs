@@ -13,13 +13,27 @@ namespace PharmacyNetwork.ApplicationCore.Entities
         }
 
         public int MedItemId { get; set; }
+
+        [Required]
+        [Display(Name = "Фирма производитель")]
         public int FirmId { get; set; }
+
+        [Required]
+        [Display(Name = "Категория товара")]
         public int CategId { get; set; }
-        [Display(Name = "Название")]
+
+        [Required(ErrorMessage = "Введите название товара!")]
+        [Display(Name = "Название товара")]
         public string MedItemName { get; set; }
+
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Описание")]
         public string MedItemDescrip { get; set; }
+
+        [Required(ErrorMessage = "Введите закупочную цену!")]
+        [Display(Name = "Цена (закупочная)")]
         public decimal MedItemPrice { get; set; }
+
         [Display(Name = "Цена")]
         public decimal? MedItemPriceMarkup { get; set; }
 

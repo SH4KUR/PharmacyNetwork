@@ -1,55 +1,50 @@
-﻿@model PharmacyNetwork.ApplicationCore.Entities.MedicalItem
+﻿@model PharmacyNetwork.Web.ViewModels.MedicalItemViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Добавление нового товара";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1 class="mb-3 text-center">Добавление нового товара</h1>
 
-<h4>MedicalItem</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<h4 class="mb-3">Введите данные о товаре</h4>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FirmId" class="control-label"></label>
-                <select asp-for="FirmId" class ="form-control" asp-items="ViewBag.FirmId"></select>
+                <label asp-for="MedicalItem.MedItemName" class="control-label"></label>
+                <input asp-for="MedicalItem.MedItemName" class="form-control" />
+                <span asp-validation-for="MedicalItem.MedItemName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CategId" class="control-label"></label>
-                <select asp-for="CategId" class ="form-control" asp-items="ViewBag.CategId"></select>
+                <label asp-for="MedicalItem.FirmId" class="control-label"></label>
+                <select asp-for="MedicalItem.FirmId" class="form-control" asp-items="@Model.Firms"></select>
             </div>
             <div class="form-group">
-                <label asp-for="MedItemName" class="control-label"></label>
-                <input asp-for="MedItemName" class="form-control" />
-                <span asp-validation-for="MedItemName" class="text-danger"></span>
+                <label asp-for="MedicalItem.CategId" class="control-label"></label>
+                <select asp-for="MedicalItem.CategId" class="form-control" asp-items="@Model.Categories"></select>
             </div>
             <div class="form-group">
-                <label asp-for="MedItemDescrip" class="control-label"></label>
-                <input asp-for="MedItemDescrip" class="form-control" />
-                <span asp-validation-for="MedItemDescrip" class="text-danger"></span>
+                <label asp-for="MedicalItem.MedItemDescrip" class="control-label"></label>
+                <input asp-for="MedicalItem.MedItemDescrip" class="form-control" />
+                <span asp-validation-for="MedicalItem.MedItemDescrip" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MedItemPrice" class="control-label"></label>
-                <input asp-for="MedItemPrice" class="form-control" />
-                <span asp-validation-for="MedItemPrice" class="text-danger"></span>
+                <label asp-for="MedicalItem.MedItemPrice" class="control-label"></label>
+                <input asp-for="MedicalItem.MedItemPrice" class="form-control" />
+                <span asp-validation-for="MedicalItem.MedItemPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MedItemPriceMarkup" class="control-label"></label>
-                <input asp-for="MedItemPriceMarkup" class="form-control" />
-                <span asp-validation-for="MedItemPriceMarkup" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Создать" class="btn btn-primary btn-lg" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary btn-lg">Вернуться</a>
 </div>
 
 @section Scripts {

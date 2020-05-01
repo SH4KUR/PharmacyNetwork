@@ -7,18 +7,12 @@ using PharmacyNetwork.ApplicationCore.Entities;
 
 namespace PharmacyNetwork.Web.ViewModels
 {
-    public class MedicalItemsViewModel
+    public class MedicalItemViewModel
     {
-        public IEnumerable<MedicalItem> MedicalItems { get; set; }
-
-        public int? CategoryFilterApplied { get; set; }
-
-        public int? FirmFilterApplied { get; set; }
+        public MedicalItem MedicalItem { get; set; }
 
         public IEnumerable<SelectListItem> Firms { get; set; }
 
         public IEnumerable<SelectListItem> Categories { get; set; }
-
-        public PaginationViewModel Pagination { get; set; }
     }
 }

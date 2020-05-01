@@ -12,20 +12,20 @@ using PharmacyNetwork.Web.ViewModels;
 
 namespace PharmacyNetwork.Web.Features.MedicalItems
 {
-    public class GetMedicalItemsHandler : IRequestHandler<GetMedicalItems, MedicalItemsViewModel>
+    public class GetMedicalItemsListHandler : IRequestHandler<GetMedicalItemsList, MedicalItemsListViewModel>
     {
         private readonly IAsyncRepository<MedicalItem> _medicalItemsRepository;
         private readonly IAsyncRepository<Firm> _firmsRepository;
         private readonly IAsyncRepository<ProductCategory> _categoriesRepository;
 
-        public GetMedicalItemsHandler(IAsyncRepository<MedicalItem> medicalItemsRepository, IAsyncRepository<Firm> firmRepository, IAsyncRepository<ProductCategory> categoryRepository)
+        public GetMedicalItemsListHandler(IAsyncRepository<MedicalItem> medicalItemsRepository, IAsyncRepository<Firm> firmRepository, IAsyncRepository<ProductCategory> categoryRepository)
         {
             _medicalItemsRepository = medicalItemsRepository;
             _firmsRepository = firmRepository;
             _categoriesRepository = categoryRepository;
         }
 
-        public async Task<MedicalItemsViewModel> Handle(GetMedicalItems request, CancellationToken cancellationToken)
+        public async Task<MedicalItemsListViewModel> Handle(GetMedicalItemsList request, CancellationToken cancellationToken)
         {
             var medicalItemsSpecification = new MedicalItemsSpecification(request.CategId, request.FirmId);
             var medicalItemsPaginatedSpecification = new MedicalItemsPaginatedSpecification(Constants.ITEMS_PER_PAGE * request.PageIndex,
@@ -44,7 +44,7 @@ namespace PharmacyNetwork.Web.Features.MedicalItems
             paginationViewModel.Next = (paginationViewModel.ActualPage == paginationViewModel.TotalPages - 1) ? "page-item disabled" : "page-item";
             paginationViewModel.Previous = (paginationViewModel.ActualPage == 0) ? "page-item disabled" : "page-item";
 
-            var medicalItemsViewModel = new MedicalItemsViewModel()
+            var medicalItemsViewModel = new MedicalItemsListViewModel()
             {
                 MedicalItems = itemsOnPage,
                 CategoryFilterApplied = request.CategId,

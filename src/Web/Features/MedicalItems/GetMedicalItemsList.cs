@@ -7,7 +7,7 @@ using PharmacyNetwork.Web.ViewModels;
 
 namespace PharmacyNetwork.Web.Features.MedicalItems
 {
-    public class GetMedicalItems : IRequest<MedicalItemsViewModel>
+    public class GetMedicalItemsList : IRequest<MedicalItemsListViewModel>
     {
         public int PageIndex { get; set; }
 
@@ -15,7 +15,7 @@ namespace PharmacyNetwork.Web.Features.MedicalItems
 
         public int? FirmId { get; set; }
 
-        public GetMedicalItems(int pageIndex, int? categId, int? firmId)
+        public GetMedicalItemsList(int pageIndex, int? categId, int? firmId)
         {
             PageIndex = pageIndex;
             CategId = categId;
