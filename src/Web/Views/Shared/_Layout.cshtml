@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using PharmacyNetwork.ApplicationCore.Constants
 @using PharmacyNetwork.Infrastructure.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 
@@ -24,22 +25,21 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <a class="nav-link text-light" asp-area="" asp-controller="MedicalItems" asp-action="Index">Медицинские товары</a>
-                            }
-                        </li>
-                    </ul>
+
+                    @await Html.PartialAsync("_LoginPartial")
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @await Html.PartialAsync("PartialViews/_NavBar")    
+                    }
+
                 </div>
             </div>
         </nav>
     </header>
 
-    @if ((ViewContext.RouteData.Values["Controller"].ToString() == "MedicalItems")
-       && ((ViewContext.RouteData.Values["Action"].ToString() == "Index")))
+    @if ((ViewContext.RouteData.Values["Controller"]?.ToString() == "MedicalItems")
+       && ((ViewContext.RouteData.Values["Action"]?.ToString() == "Index")))
     {
         <div class="container-fluid">
             <main role="main" class="pb-3">
