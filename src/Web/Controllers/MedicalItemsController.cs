@@ -22,18 +22,18 @@ namespace PharmacyNetwork.Web.Controllers
     public class MedicalItemsController : Controller
     {
         private readonly IAsyncRepository<MedicalItem> _repository;
-        private IMediator Mediator { get; }
+        private readonly IMediator _mediator;
 
         public MedicalItemsController(IAsyncRepository<MedicalItem> repository, IMediator mediator)
         {
             _repository = repository;
-            Mediator = mediator;
+            _mediator = mediator;
         }
 
         // GET: MedicalItems
         public async Task<IActionResult> Index(MedicalItemsListViewModel medicalItemsViewModel, int? pageId)
         {
-            var medicalItems = await Mediator.Send(new GetMedicalItemsList(pageId ?? 0, medicalItemsViewModel.CategoryFilterApplied,
+            var medicalItems = await _mediator.Send(new GetMedicalItemsList(pageId ?? 0, medicalItemsViewModel.CategoryFilterApplied,
                 medicalItemsViewModel.FirmFilterApplied)); 
 
             return View(medicalItems);
@@ -54,7 +54,7 @@ namespace PharmacyNetwork.Web.Controllers
         [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
         public async Task<IActionResult> Create()
         {
-            var medicalItemViewModel = await Mediator.Send(new GetMedicalItem());
+            var medicalItemViewModel = await _mediator.Send(new GetMedicalItem());
             return View(medicalItemViewModel);
         }
 
@@ -76,7 +76,7 @@ namespace PharmacyNetwork.Web.Controllers
         {
             if (id == null) return NotFound();
 
-            var medicalItemViewModel = await Mediator.Send(new GetMedicalItem(id));
+            var medicalItemViewModel = await _mediator.Send(new GetMedicalItem(id));
             if (medicalItemViewModel == null) return NotFound();
 
             return View(medicalItemViewModel);

@@ -19,12 +19,12 @@ namespace PharmacyNetwork.Web.Controllers
     public class IncomesController : Controller
     {
         private readonly IAsyncRepository<Income> _repository;
-        private IMediator Mediator;
+        private readonly IMediator _mediator;
 
         public IncomesController(IAsyncRepository<Income> repository, IMediator mediator)
         {
             _repository = repository;
-            Mediator = mediator;
+            _mediator = mediator;
         }
 
         // GET: Incomes
@@ -48,8 +48,7 @@ namespace PharmacyNetwork.Web.Controllers
         {
             if (id == null) return NotFound();
 
-            var incomeDetailViewModel = await Mediator.Send(new GetIncomeDetail(id));
-
+            var incomeDetailViewModel = await _mediator.Send(new GetIncomeDetail(id));
             if (incomeDetailViewModel.Income == null) return NotFound();
 
             return View(incomeDetailViewModel);
