@@ -1,58 +1,57 @@
 ﻿@model PharmacyNetwork.ApplicationCore.Entities.MedicalItem
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Удаление товара";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<h1 class="mb-3 text-center">Удаление товара</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h4 class="mb-3">Вы уверены, что хотите удалить этот товар из базы?</h4>
+
 <div>
-    <h4>MedicalItem</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <dl class="row justify-content-center">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MedItemName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.MedItemName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MedItemDescrip)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CategId)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MedItemDescrip)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Categ.CategName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirmId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Firm.FirmName)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MedItemPrice)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MedItemPrice)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MedItemPrice) грн.
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MedItemPriceMarkup)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MedItemPriceMarkup)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MedItemPriceMarkup) грн.
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categ)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MedItemDescrip)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categ.CategName)
-        </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Firm)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Firm.FirmAddress)
-        </dd class>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MedItemDescrip)
+        </dd>
     </dl>
-    
-    <form asp-action="Delete">
+
+    <form asp-action="Delete" class="mt-3">
         <input type="hidden" asp-for="MedItemId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Удалить" class="btn btn-danger btn-lg" /> |
+        <a asp-action="Index" class="btn btn-secondary btn-lg">Вернуться</a>
     </form>
 </div>

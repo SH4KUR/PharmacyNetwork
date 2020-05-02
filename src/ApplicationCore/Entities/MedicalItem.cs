@@ -34,7 +34,7 @@ namespace PharmacyNetwork.ApplicationCore.Entities
         [Display(Name = "Цена (закупочная)")]
         public decimal MedItemPrice { get; set; }
 
-        [Display(Name = "Цена")]
+        [Display(Name = "Цена (с наценкой)")]
         public decimal? MedItemPriceMarkup { get; set; }
 
         public virtual ProductCategory Categ { get; set; }
