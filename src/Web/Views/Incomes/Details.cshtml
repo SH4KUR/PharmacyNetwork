@@ -1,0 +1,31 @@
+﻿@model PharmacyNetwork.ApplicationCore.Entities.Income
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Income</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IncomeDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IncomeDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Pharm)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Pharm.PharmAddress)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IncomeId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

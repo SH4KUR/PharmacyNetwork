@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PharmacyNetwork.ApplicationCore.Entities
 {
@@ -11,7 +12,13 @@ namespace PharmacyNetwork.ApplicationCore.Entities
         }
 
         public int IncomeId { get; set; }
+
+        [Required]
+        [Display(Name = "Аптека")]
         public int PharmId { get; set; }
+
+        [Required]
+        [Display(Name = "Дата и время поступления")]
         public DateTime IncomeDate { get; set; }
 
         public virtual Pharmacy Pharm { get; set; }

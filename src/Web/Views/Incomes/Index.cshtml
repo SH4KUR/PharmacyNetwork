@@ -1,0 +1,64 @@
+﻿@using PharmacyNetwork.ApplicationCore.Constants
+@model IEnumerable<PharmacyNetwork.ApplicationCore.Entities.Income>
+
+@{
+    ViewData["Title"] = "Поступлениия в аптеку";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+
+@if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+{
+    <a asp-action="Create" class="btn btn-outline-success btn-lg">Добавить новое поступление</a>
+}
+
+<h1 class="mb-3 text-center">Список поступлений</h1>
+
+<div class="table-responsive">
+    <table data-toggle="table"
+           data-show-button-text="true"
+           data-show-search-clear-button="true"
+           data-filter-control="true"
+           data-classes="table table-hover table-sm"
+           data-pagination="true"
+           data-pagination-loop="false"
+           data-page-list="[3, 10, 25, 50, 100, 200, All]"
+           data-locale="ru-RU">
+        <thead>
+            <tr>
+                <th scope="col" data-sortable="true" data-filter-control="input" data-field="incomeDate">
+                    @Html.DisplayNameFor(model => model.IncomeDate)
+                </th>
+                <th scope="col" data-sortable="true" data-filter-control="select" data-field="pharmName">
+                    @Html.DisplayNameFor(model => model.Pharm.PharmName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IncomeDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pharm.PharmName)
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info btn-block" asp-action="Details" asp-route-id="@item.PharmId">Подробнее</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="lib/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script src="lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+}

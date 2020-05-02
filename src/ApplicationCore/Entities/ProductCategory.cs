@@ -17,7 +17,7 @@ namespace PharmacyNetwork.ApplicationCore.Entities
         public string CategName { get; set; }
 
         [Required]
-        [Display(Name = "Процент наценки за категорию")]
+        [Display(Name = "Процент наценки на категорию")]
         public decimal CategMarkup { get; set; }
 
         public virtual ICollection<MedicalItem> MedicalItem { get; set; }

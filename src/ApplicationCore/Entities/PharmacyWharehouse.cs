@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PharmacyNetwork.ApplicationCore.Entities
 {
@@ -9,8 +10,16 @@ namespace PharmacyNetwork.ApplicationCore.Entities
             ReservedMedItem = new HashSet<ReservedMedItem>();
         }
 
+        [Required]
+        [Display(Name = "Аптека")]
         public int PharmId { get; set; }
+
+        [Required]
+        [Display(Name = "Медицинский товар")]
         public int MedItemId { get; set; }
+
+        [Required]
+        [Display(Name = "Количество на складе")]
         public int ItemCount { get; set; }
 
         public virtual MedicalItem MedItem { get; set; }
