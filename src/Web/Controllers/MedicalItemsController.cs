@@ -135,7 +135,7 @@ namespace PharmacyNetwork.Web.Controllers
         private bool MedicalItemExists(int id)
         {
             var list = _repository.GetAllAsync().Result;
-            return list.Any(x => x.MedItemId == id);
+            return list.Any(m => m.MedItemId == id);
         }
     }
 }
