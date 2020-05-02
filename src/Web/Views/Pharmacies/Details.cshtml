@@ -1,0 +1,32 @@
+﻿@model PharmacyNetwork.ApplicationCore.Entities.Pharmacy
+
+@{
+    ViewData["Title"] = "Детали о аптеке";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mb-3 text-center">Детали о аптеке</h1>
+
+<h4 class="mb-3">@Html.DisplayFor(model => model.PharmName)</h4>
+
+<div>
+    <dl class="row justify-content-center">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PharmName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PharmName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PharmAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PharmAddress)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PharmId" class="btn btn-info btn-lg">Изменить</a> |
+    <a asp-action="Index" class="btn btn-secondary btn-lg">Вернуться</a>
+</div>

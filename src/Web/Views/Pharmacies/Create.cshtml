@@ -1,0 +1,39 @@
+﻿@model PharmacyNetwork.ApplicationCore.Entities.Pharmacy
+
+@{
+    ViewData["Title"] = "Добавление новой аптеки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mb-3 text-center">Добавление новой аптеки</h1>
+
+<h4 class="mb-3">Введите данные о аптеке</h4>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PharmName" class="control-label"></label>
+                <input asp-for="PharmName" class="form-control" />
+                <span asp-validation-for="PharmName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PharmAddress" class="control-label"></label>
+                <input asp-for="PharmAddress" class="form-control" />
+                <span asp-validation-for="PharmAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary btn-lg" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary btn-lg">Вернуться</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

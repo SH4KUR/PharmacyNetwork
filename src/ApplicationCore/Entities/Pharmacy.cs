@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PharmacyNetwork.ApplicationCore.Entities
 {
@@ -12,7 +13,13 @@ namespace PharmacyNetwork.ApplicationCore.Entities
         }
 
         public int PharmId { get; set; }
+
+        [Required]
+        [Display(Name = "Название аптеки")]
         public string PharmName { get; set; }
+
+        [Required]
+        [Display(Name = "Адрес аптеки")]
         public string PharmAddress { get; set; }
 
         public virtual ICollection<Income> Income { get; set; }
