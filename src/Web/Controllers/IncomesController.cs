@@ -29,6 +29,15 @@ namespace PharmacyNetwork.Web.Controllers
             return View(incomes);
         }
 
+        // GET: Incomes/Create
+        public IActionResult Create() => View();
+
+        //// POST: Incomes/Create
+        //public async Task<IActionResult> Create()
+        //{
+
+        //}
+
         //// GET: Incomes/Details/5
         //public async Task<IActionResult> Details(int? id)
         //{
