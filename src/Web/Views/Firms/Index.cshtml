@@ -1,54 +1,79 @@
-﻿@model IEnumerable<PharmacyNetwork.ApplicationCore.Entities.Firm>
+﻿@using PharmacyNetwork.ApplicationCore.Constants
+@model IEnumerable<PharmacyNetwork.ApplicationCore.Entities.Firm>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Фирмы";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirmName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirmAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirmContact)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirmMarkup)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirmName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirmAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirmContact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirmMarkup)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FirmId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FirmId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FirmId">Delete</a>
-            </td>
-        </tr>
+<link href="lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+@if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+{
+    <a asp-action="Create" class="btn btn-outline-success btn-lg">Добавить новую фирму</a>
 }
-    </tbody>
-</table>
+
+<h1 class="mb-3 text-center">Список фирм</h1>
+
+<div class="table-responsive">
+    <table data-toggle="table"
+           data-show-button-text="true"
+           data-show-search-clear-button="true"
+           data-filter-control="true"
+           data-classes="table table-hover table-sm"
+           data-pagination="true"
+           data-pagination-loop="false"
+           data-page-list="[3, 10, 25, 50, 100, 200, All]"
+           data-locale="ru-RU">
+        <thead>
+            <tr>
+                <th scope="col" data-sortable="true" data-filter-control="input" data-field="name">
+                    @Html.DisplayNameFor(model => model.FirmName)
+                </th>
+                <th scope="col" data-sortable="true" data-filter-control="input" data-field="address">
+                    @Html.DisplayNameFor(model => model.FirmAddress)
+                </th>
+                <th scope="col" data-sortable="true" data-filter-control="input" data-field="contact">
+                    @Html.DisplayNameFor(model => model.FirmContact)
+                </th>
+                <th scope="col" data-sortable="true" data-filter-control="select" data-field="markup">
+                    @Html.DisplayNameFor(model => model.FirmMarkup)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirmName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirmAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirmContact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirmMarkup)
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info btn-block" asp-action="Details" asp-route-id="@item.FirmId">Подробнее</a>
+                        
+                        @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+                        {
+                            <a class="btn btn-outline-success btn-sm btn-block" asp-action="Edit" asp-route-id="@item.FirmId">Изменить</a>
+                            <a class="btn btn-outline-danger btn-sm btn-block" asp-action="Delete" asp-route-id="@item.FirmId">Удалить</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="lib/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script src="lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+}
