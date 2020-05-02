@@ -1,0 +1,99 @@
+﻿@model PharmacyNetwork.Web.ViewModels.PurchaseCheckViewModel
+
+@{
+    ViewData["Title"] = "Детально о покупке";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-3 text-center">Детально о покупке</h2>
+
+<h4 class="mb-3 mt-3">@Html.DisplayFor(model => model.Purchase.Pharm.PharmName)</h4>
+
+<div>
+    <dl class="row justify-content-center">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Purchase.PurchId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Purchase.PurchId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Purchase.PurchDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Purchase.PurchDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Purchase.PurchAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Purchase.PurchAmount) грн.
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Purchase.PurchDiscountPercent)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Purchase.PurchDiscountPercent) %
+        </dd>
+    </dl>
+</div>
+
+<link href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<h5 class="mb-3 mt-3 text-center">Список медицинских товаров в покупке</h5>
+
+<div class="table-responsive">
+    <table data-toggle="table"
+           data-filter-control="true"
+           data-classes="table table-hover"
+           data-pagination="true"
+           data-pagination-loop="false"
+           data-page-list="[3, 10, 25, 50, 100, 200, All]"
+           data-locale="ru-RU">
+        <thead>
+            <tr>
+                <th scope="col" data-sortable="true" data-field="medItem">
+                    Медицинский товар
+                </th>
+                <th scope="col" data-sortable="true" data-field="medItemPrice">
+                    Цена за единицу
+                </th>
+                <th scope="col" data-sortable="true" data-field="count">
+                    Количество
+                </th>
+                <th scope="col" data-sortable="true" data-field="price">
+                    Сумма
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Check)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MedItem.MedItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MedItem.MedItemPriceMarkup) грн.
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCount)
+                    </td>
+                    <td>
+                        @(item.MedItem.MedItemPriceMarkup * item.ItemCount) грн.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Index" class="mt-3 btn btn-secondary btn-lg">Вернуться</a>
+</div>
+
+@section Scripts {
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+}
