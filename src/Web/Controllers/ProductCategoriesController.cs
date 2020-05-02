@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,74 +14,65 @@ using PharmacyNetwork.Infrastructure.Data;
 namespace PharmacyNetwork.Web.Controllers
 {
     [Authorize]
-    public class FirmsController : Controller
+    public class ProductCategoriesController : Controller
     {
-        private readonly IAsyncRepository<Firm> _repository;
+        private readonly IAsyncRepository<ProductCategory> _repository;
 
-        public FirmsController(IAsyncRepository<Firm> repository)
+        public ProductCategoriesController(IAsyncRepository<ProductCategory> repository)
         {
             _repository = repository;
         }
 
-        // GET: Firms
+        // GET: ProductCategories
         public async Task<IActionResult> Index()
         {
-            var firms = await _repository.GetAllAsync();
-            return View(firms);
+            var productCategories= await _repository.GetAllAsync();
+            return View(productCategories);
         }
 
-        // GET: Firms/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var firm = await _repository.GetByIdAsync(id);
-            if (firm == null) return NotFound();
-
-            return View(firm);
-        }
-
-        // GET: Firms/Create
+        // GET: ProductCategories/Create
+        [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
         public IActionResult Create() => View();
-        
-        // POST: Firms/Create
+
+        // POST: ProductCategories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Firm firm)
+        [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
+        public async Task<IActionResult> Create(ProductCategory productCategory)
         {
-            if (!ModelState.IsValid) return View(firm);
+            if (!ModelState.IsValid) return View(productCategory);
 
-            await _repository.AddAsync(firm);
+            await _repository.AddAsync(productCategory);
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Firms/Edit/5
+        // GET: ProductCategories/Edit/5
         [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
 
-            var firm = await _repository.GetByIdAsync(id);
-            if (firm == null) return NotFound();
-
-            return View(firm);
+            var productCategory = await _repository.GetByIdAsync(id);
+            if (productCategory == null) return NotFound();
+            
+            return View(productCategory);
         }
 
-        // POST: Firms/Edit/5
+        // POST: ProductCategories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
-        public async Task<IActionResult> Edit(Firm firm)
+        public async Task<IActionResult> Edit(ProductCategory productCategory)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _repository.UpdateAsync(firm);
+                    await _repository.UpdateAsync(productCategory);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FirmExists(firm.FirmId))
+                    if (!ProductCategoryExists(productCategory.CategId))
                     {
                         return NotFound();
                     }
@@ -93,36 +83,36 @@ namespace PharmacyNetwork.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(firm);
+            return View(productCategory);
         }
 
-        // GET: Firms/Delete/5
+        // GET: ProductCategories/Delete/5
         [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
 
-            var firm = await _repository.GetByIdAsync(id);
-            if (firm == null) return NotFound();
+            var productCategory = await _repository.GetByIdAsync(id);
+            if (productCategory == null) return NotFound();
 
-            return View(firm);
+            return View(productCategory);
         }
 
-        // POST: Firms/Delete/5
+        // POST: ProductCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var firm = await _repository.GetByIdAsync(id);
-            await _repository.DeleteAsync(firm);
+            var productCategory = await _repository.GetByIdAsync(id);
+            await _repository.DeleteAsync(productCategory);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FirmExists(int id)
+        private bool ProductCategoryExists(int id)
         {
             var list = _repository.GetAllAsync().Result;
-            return list.Any(f => f.FirmId == id);
+            return list.Any(e => e.CategId == id);
         }
     }
 }

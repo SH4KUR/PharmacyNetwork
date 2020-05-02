@@ -1,8 +1,8 @@
 ﻿@using PharmacyNetwork.ApplicationCore.Constants
-@model IEnumerable<PharmacyNetwork.ApplicationCore.Entities.Firm>
+@model IEnumerable<PharmacyNetwork.ApplicationCore.Entities.ProductCategory>
 
 @{
-    ViewData["Title"] = "Фирмы";
+    ViewData["Title"] = "Категории медицинских продуктов";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,10 +10,10 @@
 
 @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
 {
-    <a asp-action="Create" class="btn btn-outline-success btn-lg">Добавить новую фирму</a>
+    <a asp-action="Create" class="btn btn-outline-success btn-lg">Добавить новую категорию</a>
 }
 
-<h1 class="mb-3 text-center">Список фирм</h1>
+<h1 class="mb-3 text-center">Список категорий</h1>
 
 <div class="table-responsive">
     <table data-toggle="table"
@@ -28,16 +28,10 @@
         <thead>
             <tr>
                 <th scope="col" data-sortable="true" data-filter-control="input" data-field="name">
-                    @Html.DisplayNameFor(model => model.FirmName)
-                </th>
-                <th scope="col" data-sortable="true" data-filter-control="input" data-field="address">
-                    @Html.DisplayNameFor(model => model.FirmAddress)
-                </th>
-                <th scope="col" data-sortable="true" data-filter-control="input" data-field="contact">
-                    @Html.DisplayNameFor(model => model.FirmContact)
+                    @Html.DisplayNameFor(model => model.CategName)
                 </th>
                 <th scope="col" data-sortable="true" data-filter-control="select" data-field="markup">
-                    @Html.DisplayNameFor(model => model.FirmMarkup)
+                    @Html.DisplayNameFor(model => model.CategMarkup)
                 </th>
                 <th></th>
             </tr>
@@ -47,24 +41,18 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FirmName)
+                        @Html.DisplayFor(modelItem => item.CategName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FirmAddress)
+                        @Html.DisplayFor(modelItem => item.CategMarkup) %
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FirmContact)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirmMarkup) %
-                    </td>
-                    <td>
-                        <a class="btn btn-outline-info btn-block" asp-action="Details" asp-route-id="@item.FirmId">Подробнее</a>
-                        
+                        @*<a class="btn btn-outline-info btn-block" asp-action="Details" asp-route-id="@item.FirmId">Подробнее</a>*@
+
                         @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
                         {
-                            <a class="btn btn-outline-success btn-sm btn-block" asp-action="Edit" asp-route-id="@item.FirmId">Изменить</a>
-                            <a class="btn btn-outline-danger btn-sm btn-block" asp-action="Delete" asp-route-id="@item.FirmId">Удалить</a>
+                            <a class="btn btn-outline-success btn-sm btn-block" asp-action="Edit" asp-route-id="@item.CategId">Изменить</a>
+                            <a class="btn btn-outline-danger btn-sm btn-block" asp-action="Delete" asp-route-id="@item.CategId">Удалить</a>
                         }
                     </td>
                 </tr>
