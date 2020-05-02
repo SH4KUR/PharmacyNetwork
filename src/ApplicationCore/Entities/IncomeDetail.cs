@@ -17,7 +17,7 @@ namespace PharmacyNetwork.ApplicationCore.Entities
         public int Count { get; set; }
 
         [Required]
-        [Display(Name = "Сумма поступления")]
+        [Display(Name = "Сумма")]
         public decimal Price { get; set; }
 
         public virtual Income Income { get; set; }

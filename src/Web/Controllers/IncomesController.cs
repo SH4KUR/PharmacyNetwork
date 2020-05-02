@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using PharmacyNetwork.ApplicationCore.Entities;
 using PharmacyNetwork.ApplicationCore.Interfaces;
 using PharmacyNetwork.Infrastructure.Data;
+using PharmacyNetwork.Web.Features.Incomes;
+using PharmacyNetwork.Web.ViewModels;
 
 namespace PharmacyNetwork.Web.Controllers
 {
@@ -16,10 +19,12 @@ namespace PharmacyNetwork.Web.Controllers
     public class IncomesController : Controller
     {
         private readonly IAsyncRepository<Income> _repository;
+        private IMediator Mediator;
 
-        public IncomesController(IAsyncRepository<Income> repository)
+        public IncomesController(IAsyncRepository<Income> repository, IMediator mediator)
         {
             _repository = repository;
+            Mediator = mediator;
         }
 
         // GET: Incomes
@@ -38,23 +43,16 @@ namespace PharmacyNetwork.Web.Controllers
 
         //}
 
-        //// GET: Incomes/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Incomes/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
 
-        //    var income = await _context.Income
-        //        .Include(i => i.Pharm)
-        //        .FirstOrDefaultAsync(m => m.IncomeId == id);
-        //    if (income == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var incomeDetailViewModel = await Mediator.Send(new GetIncomeDetail(id));
 
-        //    return View(income);
-        //}
+            if (incomeDetailViewModel.Income == null) return NotFound();
+
+            return View(incomeDetailViewModel);
+        }
     }
 }

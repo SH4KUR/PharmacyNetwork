@@ -11,6 +11,8 @@ namespace PharmacyNetwork.ApplicationCore.Entities
             IncomeDetail = new HashSet<IncomeDetail>();
         }
 
+        [Required]
+        [Display(Name = "Номер поступления")]
         public int IncomeId { get; set; }
 
         [Required]

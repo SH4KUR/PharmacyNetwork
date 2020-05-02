@@ -6,7 +6,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <link href="lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
 
 @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
@@ -48,7 +47,7 @@
                         @Html.DisplayFor(modelItem => item.Pharm.PharmName)
                     </td>
                     <td>
-                        <a class="btn btn-outline-info btn-block" asp-action="Details" asp-route-id="@item.PharmId">Подробнее</a>
+                        <a class="btn btn-outline-info btn-block" asp-action="Details" asp-route-id="@item.IncomeId">Подробнее</a>
                     </td>
                 </tr>
             }
