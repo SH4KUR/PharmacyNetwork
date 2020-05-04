@@ -13,8 +13,8 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="container">
+        <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/img/pharm_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                     PharmNet
@@ -23,13 +23,13 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse">
 
                     @await Html.PartialAsync("_LoginPartial")
 
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        @await Html.PartialAsync("PartialViews/_NavBar")    
+                        @await Html.PartialAsync("PartialViews/_NavBar")
                     }
 
                 </div>

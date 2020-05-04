@@ -23,11 +23,13 @@ namespace PharmacyNetwork.Web.Controllers
     {
         private readonly IAsyncRepository<MedicalItem> _repository;
         private readonly IMediator _mediator;
+        private IIncomesMedItemsService _incomesMedItemsService;
 
-        public MedicalItemsController(IAsyncRepository<MedicalItem> repository, IMediator mediator)
+        public MedicalItemsController(IAsyncRepository<MedicalItem> repository, IMediator mediator, IIncomesMedItemsService incomesMedItemsService)
         {
             _repository = repository;
             _mediator = mediator;
+            _incomesMedItemsService = incomesMedItemsService;
         }
 
         // GET: MedicalItems
