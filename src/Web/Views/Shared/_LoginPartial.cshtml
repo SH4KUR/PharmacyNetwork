@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using PharmacyNetwork.ApplicationCore.Constants
 @using PharmacyNetwork.Infrastructure.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -6,12 +7,22 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="btn btn-info">Оформить покупку</a>
-        </li>
+        @if(User.IsInRole(AuthorizationConstants.Roles.USERS))
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Оформление
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-controller="PharmacyWharehouses" asp-action="Index">Товары Аптеки</a>
+                </div>
+            </li>
+        }
+
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="~/img/profile_icon.png" width="33" height="33" class="d-inline-block align-top" alt="" />
+                <img src="~/img/profile_icon.png" width="30" height="30" class="d-inline-block align-top" alt="" />
+                Профиль
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Профиль</a>

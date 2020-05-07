@@ -9,6 +9,7 @@ namespace PharmacyNetwork.ApplicationCore.Constants
         public static class Roles
         {
             public const string ADMINSTRATORS = "Administrators";
+            public const string USERS = "Users";
         }
 
         public const string DEFAULT_PASSWORD = "Pass@word1";

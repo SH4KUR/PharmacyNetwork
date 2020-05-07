@@ -23,13 +23,11 @@ namespace PharmacyNetwork.Web.Controllers
     {
         private readonly IAsyncRepository<MedicalItem> _repository;
         private readonly IMediator _mediator;
-        private IIncomesMedItemsService _incomesMedItemsService;
 
-        public MedicalItemsController(IAsyncRepository<MedicalItem> repository, IMediator mediator, IIncomesMedItemsService incomesMedItemsService)
+        public MedicalItemsController(IAsyncRepository<MedicalItem> repository, IMediator mediator)
         {
             _repository = repository;
             _mediator = mediator;
-            _incomesMedItemsService = incomesMedItemsService;
         }
 
         // GET: MedicalItems
@@ -44,6 +42,7 @@ namespace PharmacyNetwork.Web.Controllers
         // GET: MedicalItems/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // TODO: Add Button "Availability In Pharmacies"
             if (id == null) return NotFound();
 
             var medicalItem = await _repository.GetByIdAsync(id);

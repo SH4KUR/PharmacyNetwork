@@ -13,7 +13,7 @@ namespace PharmacyNetwork.ApplicationCore.Entities
         public int CategId { get; set; }
 
         [Required]
-        [Display(Name = "Названиии категории")]
+        [Display(Name = "Название категории")]
         public string CategName { get; set; }
 
         [Required]

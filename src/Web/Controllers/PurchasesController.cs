@@ -27,6 +27,7 @@ namespace PharmacyNetwork.Web.Controllers
         // GET: Purchases
         public async Task<IActionResult> Index()
         {
+            // TODO: For User Role add Purchases by Pharmacy
             var purchases = await _repository.GetAllAsync();
             return View(purchases);
         }

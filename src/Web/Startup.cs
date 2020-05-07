@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PharmacyNetwork.ApplicationCore.Interfaces;
-using PharmacyNetwork.ApplicationCore.Services;
 using PharmacyNetwork.Infrastructure.Data;
 using  PharmacyNetwork.Infrastructure.Identity;
 using PharmacyNetwork.Infrastructure.Logging;
@@ -40,7 +39,6 @@ namespace PharmacyNetwork.Web
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
-            services.AddScoped<IIncomesMedItemsService, IncomesMedItemsService>();
 
             // Add Identity DbContext
             services.AddDbContext<AppIdentityDbContext>(options =>

@@ -10,8 +10,9 @@ namespace PharmacyNetwork.Infrastructure.Identity
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             await roleManager.CreateAsync(new IdentityRole(AuthorizationConstants.Roles.ADMINSTRATORS));
+            await roleManager.CreateAsync(new IdentityRole(AuthorizationConstants.Roles.USERS));
 
-            //create demo user
+            // Create demo user
             var defaultUser = new ApplicationUser
             {
                 UserName = "demo.user@gmail.com",
@@ -19,7 +20,7 @@ namespace PharmacyNetwork.Infrastructure.Identity
             };
             await userManager.CreateAsync(defaultUser, AuthorizationConstants.DEFAULT_PASSWORD);
 
-            //create demo admin
+            // Create demo admin
             var defaultAdmin = new ApplicationUser
             {
                 UserName = "demo.admin@gmail.com",
@@ -27,9 +28,13 @@ namespace PharmacyNetwork.Infrastructure.Identity
             };
             await userManager.CreateAsync(defaultAdmin, AuthorizationConstants.DEFAULT_PASSWORD);
 
-            //add admin role for demo admin
+            // Add admin role for demo admin
             defaultAdmin = await userManager.FindByEmailAsync(defaultAdmin.Email);
             await userManager.AddToRoleAsync(defaultAdmin, AuthorizationConstants.Roles.ADMINSTRATORS);
+
+            // Add user role for demo user
+            defaultUser = await userManager.FindByEmailAsync(defaultUser.Email);
+            await userManager.AddToRoleAsync(defaultUser, AuthorizationConstants.Roles.USERS);
         }
     }
 }
