@@ -8,11 +8,6 @@
 
 <link href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
 
-@if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
-{
-    <a asp-action="Create" class="btn btn-outline-success btn-lg">Добавить новую аптеку</a>
-}
-
 <h1 class="mb-3 text-center">Список товаров - @Model.First().Pharm.PharmName</h1>
 
 <div class="table-responsive">
