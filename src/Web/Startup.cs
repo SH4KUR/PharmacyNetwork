@@ -70,6 +70,14 @@ namespace PharmacyNetwork.Web
 
             services.AddDistributedMemoryCache();
 
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".PharmNet.Session";
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddMemoryCache();
 
             // Inject an implementation of ISwaggerProvider with defaulted settings applied
@@ -113,7 +121,7 @@ namespace PharmacyNetwork.Web
 
             app.UseRouting();
 
-            //app.UseSession();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();
