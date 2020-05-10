@@ -10,6 +10,7 @@ using PharmacyNetwork.ApplicationCore.Entities;
 using PharmacyNetwork.ApplicationCore.Interfaces;
 using PharmacyNetwork.ApplicationCore.Specifications;
 using PharmacyNetwork.Infrastructure.Identity;
+using PharmacyNetwork.Web.Extensions;
 
 namespace PharmacyNetwork.Web.Features.Wharehouses
 {
@@ -26,8 +27,7 @@ namespace PharmacyNetwork.Web.Features.Wharehouses
 
         public async Task<IEnumerable<PharmacyWharehouse>> Handle(GetMedItemsInPharmCurrentUser request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.GetUserAsync(request.CurrentUser);
-            var idPharm = user.PharmacyId;
+            var idPharm = await _userManager.GetPharmacyId(request.CurrentUser);
 
             var medItemsByPharmWharehouseSpecification = new MedItemsByPharmWharehouseSpecification(idPharm);
 
