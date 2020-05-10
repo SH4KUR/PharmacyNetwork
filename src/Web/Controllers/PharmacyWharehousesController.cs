@@ -16,7 +16,7 @@ namespace PharmacyNetwork.Web.Controllers
     public class PharmacyWharehousesController : Controller
     {
         private readonly IAsyncRepository<PharmacyWharehouse> _repository;
-        private IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public PharmacyWharehousesController(IAsyncRepository<PharmacyWharehouse> repository, IMediator mediator)
         {
