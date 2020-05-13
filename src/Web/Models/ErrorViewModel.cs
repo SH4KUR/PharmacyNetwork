@@ -1,6 +1,4 @@
-using System;
-
-namespace Web.Models
+namespace PharmacyNetwork.Web.Models
 {
     public class ErrorViewModel
     {
