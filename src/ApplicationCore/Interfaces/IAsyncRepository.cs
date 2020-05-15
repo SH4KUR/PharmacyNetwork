@@ -18,5 +18,7 @@ namespace PharmacyNetwork.ApplicationCore.Interfaces
         Task UpdateAsync(T entity);
 
         Task DeleteAsync(T entity);
+
+        Task ExecuteSqlRawAsync(string query);
     }
 }

@@ -1,0 +1,36 @@
+﻿@model PharmacyNetwork.ApplicationCore.Entities.ReservedMedItem
+
+@{
+    ViewData["Title"] = "Детали о резерве";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mb-3 text-center">Детали о резерве</h1>
+
+<div>
+    <h4 class="text-center mb-3">Телефон: @Html.DisplayFor(model => model.Telephone)</h4>
+    <h5 class="text-center mb-3">@Html.DisplayFor(model => model.PharmacyWharehouse.Pharm.PharmName)</h5>
+    <hr />
+    <h5 class="text-center mb-4">@Html.DisplayFor(model => model.PharmacyWharehouse.MedItem.MedItemName) - @Html.DisplayFor(model => model.Count) шт.</h5>
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-4">
+            Начало резервации
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.DateStart)
+        </dd>
+        <dt class="col-sm-4">
+            Окончание резервации
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.DateFinish)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary btn-lg">Вернуться</a>| 
+    <a asp-action="Remove" asp-route-id="@Model.ReservedId" class="btn btn-danger btn-lg">Убрать резерв</a>
+</div>

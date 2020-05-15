@@ -52,6 +52,11 @@ namespace PharmacyNetwork.Infrastructure.Data
             await Context.SaveChangesAsync();
         }
 
+        public async Task ExecuteSqlRawAsync(string query)
+        {
+            await Context.Database.ExecuteSqlRawAsync(query);
+        }
+
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvaluator<T>.GetQuery(Context.Set<T>().AsQueryable(), spec);

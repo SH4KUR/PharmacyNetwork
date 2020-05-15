@@ -6,9 +6,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PharmacyNetwork.ApplicationCore.Constants;
 using PharmacyNetwork.ApplicationCore.Entities;
 using PharmacyNetwork.ApplicationCore.Interfaces;
+using PharmacyNetwork.ApplicationCore.Specifications;
 using PharmacyNetwork.Infrastructure.Data;
+using PharmacyNetwork.Infrastructure.Identity;
+using PharmacyNetwork.Web.Features.AppUserClient;
 using PharmacyNetwork.Web.Features.Purchases;
 
 namespace PharmacyNetwork.Web.Controllers
@@ -27,7 +31,13 @@ namespace PharmacyNetwork.Web.Controllers
         // GET: Purchases
         public async Task<IActionResult> Index()
         {
-            // TODO: For User Role add Purchases by Pharmacy
+            if (User.IsInRole(AuthorizationConstants.Roles.USERS))
+            {
+                var idPharm = await _mediator.Send(new GetPharmIdByUser(User));
+                var purchasesPharm = await _repository.ListAsync(new PurchasePharmSpecification(idPharm));
+                return View(purchasesPharm);
+            }
+
             var purchases = await _repository.GetAllAsync();
             return View(purchases);
         }

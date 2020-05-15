@@ -22,7 +22,6 @@
 
             @if(User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
             {
-                <a class="dropdown-item" asp-controller="" asp-action="">Склады</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" asp-controller="Incomes" asp-action="Index">Поступления товаров</a>
             }
@@ -36,7 +35,7 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" asp-controller="Purchases" asp-action="Index">Оформленные покупки</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" asp-controller="" asp-action="">Зарезервированный Товар</a>
+            <a class="dropdown-item" asp-controller="ReservedMedItems" asp-action="Index">Зарезервированный Товар</a>
         </div>
     </li>
 </ul>
