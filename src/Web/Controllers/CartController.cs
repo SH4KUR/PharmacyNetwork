@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PharmacyNetwork.ApplicationCore.Constants;
 using PharmacyNetwork.ApplicationCore.Entities;
 using PharmacyNetwork.ApplicationCore.Interfaces;
 using PharmacyNetwork.Infrastructure.Data;
@@ -13,6 +15,7 @@ using PharmacyNetwork.Web.ViewModels;
 
 namespace PharmacyNetwork.Web.Controllers
 {
+    [Authorize(Roles = AuthorizationConstants.Roles.USERS)]
     public class CartController : Controller
     {
         private readonly PharmacyNetworkContext _context;
@@ -28,6 +31,37 @@ namespace PharmacyNetwork.Web.Controllers
             return View(cartList);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Reserve(ReserveMedItemsViewModel viewModel)
+        {
+            var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
+
+            if (!ModelState.IsValid) return View(new ReserveMedItemsViewModel() { Items = cart });
+
+            var nowDateTime = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            
+            foreach (var item in cart)
+            {
+                await _context.Database.ExecuteSqlRawAsync($"EXEC reserve_med_item '{nowDateTime}', {item.MedicalItemId}, {item.PharmacyId}, {item.Count}, '{viewModel.Telephone}'");
+            }
+
+            ClearCart();
+
+            return RedirectToAction("Details", "Purchases", new { id = 31 }); // TODO: REVIEW
+        }
+
+        public IActionResult Reserve()
+        {
+            var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
+
+            ReserveMedItemsViewModel viewModel = new ReserveMedItemsViewModel()
+            {
+                Items = cart
+            };
+
+            return View(viewModel);
+        }
+
         public async Task<IActionResult> ConfirmPurchase()
         {
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
@@ -37,7 +71,7 @@ namespace PharmacyNetwork.Web.Controllers
             var query =
                 $"INSERT INTO purchase(pharm_id, purch_date, purch_amount, purch_discount_percent) " +
                 $"VALUES({cart[0].PharmacyId}, '{nowDateTime}', 0, 0);";
-            
+
             await _context.Database.ExecuteSqlRawAsync(query);
 
             var purchases = _context.Purchase.ToList();
@@ -48,7 +82,9 @@ namespace PharmacyNetwork.Web.Controllers
                 await _context.Database.ExecuteSqlRawAsync($"EXEC add_purchase_in_check {item.MedicalItemId}, {idPurchase}, {item.Count}, {item.PharmacyId};");
             }
 
-            return RedirectToAction("Details", "Purchases", idPurchase);
+            ClearCart();
+
+            return RedirectToAction("Details", "Purchases", new {id = idPurchase});
         }
 
         public IActionResult AddToCart(int medItemId, decimal medItemPrice, int pharmId, int count)
@@ -93,6 +129,13 @@ namespace PharmacyNetwork.Web.Controllers
             HttpContext.Session.Set("Cart", cartList);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private void ClearCart()
+        {
+            var cartList = HttpContext.Session.Get<List<CartItem>>("Cart");
+            cartList.Clear();
+            HttpContext.Session.Set("Cart", cartList);
         }
     }
 }
