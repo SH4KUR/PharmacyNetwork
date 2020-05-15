@@ -60,6 +60,7 @@ namespace PharmacyNetwork.Web
             services.AddAutoMapper(typeof(Startup));
 
             services.AddControllersWithViews();
+
             services.AddMvc();
             services.AddRazorPages();
 

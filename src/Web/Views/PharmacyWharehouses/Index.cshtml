@@ -35,6 +35,7 @@
                     @Html.DisplayNameFor(model => model.ItemCount)
                 </th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +53,15 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ItemCount) шт.
+                    </td>
+                    <td>
+                        <form asp-action="AddToCart" asp-controller="Cart">
+                            <input class="form-control" type="number" name="count" max="@item.ItemCount" min="1" value="1" />
+                            <input type="hidden" name="medItemId" value="@item.MedItemId" />
+                            <input type="hidden" name="pharmId" value="@item.PharmId" />
+                            <input type="hidden" name="medItemPrice" value="@item.MedItem.MedItemPriceMarkup" />
+                            <input type="submit" value="В Корзину" class="btn btn-sm btn-info" />
+                        </form>
                     </td>
                     <td>
                         <a class="btn btn-outline-info btn-block" asp-controller="MedicalItems" asp-action="Details" asp-route-id="@item.MedItemId">Подробнее</a>
