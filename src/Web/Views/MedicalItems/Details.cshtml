@@ -1,4 +1,5 @@
-﻿@model PharmacyNetwork.ApplicationCore.Entities.MedicalItem
+﻿@using PharmacyNetwork.ApplicationCore.Constants
+@model PharmacyNetwork.Web.ViewModels.MedicalItemsDetailViewModel
 
 @{
     ViewData["Title"] = "Детали о товаре";
@@ -7,44 +8,104 @@
 
 <h1 class="mb-3 text-center">Детали о товаре</h1>
 
-<h4 class="mb-3">@Html.DisplayFor(model => model.MedItemName)</h4>
+<h4 class="mb-3">@Html.DisplayFor(model => model.MedicalItem.MedItemName)</h4>
 
 <div>
     <dl class="row justify-content-center">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CategId)
+            @Html.DisplayNameFor(model => model.MedicalItem.CategId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Categ.CategName)
+            @Html.DisplayFor(model => model.MedicalItem.Categ.CategName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirmId)
+            @Html.DisplayNameFor(model => model.MedicalItem.FirmId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Firm.FirmName)
+            @Html.DisplayFor(model => model.MedicalItem.Firm.FirmName)
+        </dd>
+
+        @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MedicalItem.MedItemPrice)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MedicalItem.MedItemPrice) грн.
+            </dd>
+        }
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MedicalItem.MedItemPriceMarkup)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MedicalItem.MedItemPriceMarkup) грн.
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MedItemPrice)
+            @Html.DisplayNameFor(model => model.MedicalItem.MedItemDescrip)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MedItemPrice) грн.
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MedItemPriceMarkup)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MedItemPriceMarkup) грн.
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MedItemDescrip)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MedItemDescrip)
+            @Html.DisplayFor(model => model.MedicalItem.MedItemDescrip)
         </dd>
     </dl>
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.MedItemId" class="btn btn-info btn-lg">Изменить</a> |
+    <a asp-action="Edit" asp-route-id="@Model.MedicalItem.MedItemId" class="btn btn-info btn-lg">Изменить</a> |
     <a asp-action="Index" class="btn btn-secondary btn-lg">Вернуться</a>
 </div>
+
+<link href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<h5 class="mb-3 mt-3 text-center">Список аптек с этим товаром</h5>
+
+<div class="table-responsive">
+    <table data-toggle="table"
+           data-filter-control="true"
+           data-classes="table table-hover"
+           data-pagination="true"
+           data-pagination-loop="false"
+           data-page-list="[3, 10, 25, 50, 100, 200, All]"
+           data-locale="ru-RU">
+        <thead>
+            <tr>
+                <th scope="col" data-sortable="true" data-search="input" data-field="pharm">
+                    Аптека
+                </th>
+                <th scope="col" data-sortable="true" data-search="input" data-field="address">
+                    Адрес
+                </th>
+                <th scope="col" data-sortable="true" data-search="input" data-field="count">
+                    Количество
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.InPharmList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pharm.PharmName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pharm.PharmAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCount) шт.
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info btn-sm btn-block" asp-action="Details" asp-controller="Pharmacies" asp-route-id="@item.PharmId">Подробнее</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+}

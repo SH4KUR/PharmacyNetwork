@@ -42,13 +42,18 @@ namespace PharmacyNetwork.Web.Controllers
         // GET: MedicalItems/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            // TODO: Add Button "Availability In Pharmacies"
             if (id == null) return NotFound();
 
             var medicalItem = await _repository.GetByIdAsync(id);
             if (medicalItem == null) return NotFound();
 
-            return View(medicalItem);
+            var viewModel = new MedicalItemsDetailViewModel()
+            {
+                MedicalItem = medicalItem,
+                InPharmList = await _mediator.Send(new GetMedItemsInAllPharm(id))
+            };
+
+            return View(viewModel);
         }
 
         // GET: MedicalItems/Create

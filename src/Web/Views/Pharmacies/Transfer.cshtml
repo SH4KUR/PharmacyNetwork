@@ -7,18 +7,18 @@
 
 <h1 class="mb-3 text-center">Перемещение товара между аптеками</h1>
 
-<h4 class="mb-3 text-center">Введите данные о переводе</h4>
+<h2 class="mb-3 text-center mb-5">Введите данные о переводе</h2>
 
 <div class="row justify-content-center">
     <div class="col-md-6">
         <form asp-action="ConfirmTransfer">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <h4>Из аптеки - @Model.Pharmacy.PharmName</h4>
+                <h5>Из аптеки - @Model.Pharmacy.PharmName</h5>
                 <input type="hidden" asp-for="Pharmacy.PharmId" />
             </div>
             <div class="form-group">
-                <h4>Товар - @Model.MedicalItem.MedItemName</h4>
+                <h5>Товар - @Model.MedicalItem.MedItemName</h5>
                 <input type="hidden" asp-for="MedicalItem.MedItemId" />
             </div>
             <div class="form-group">
