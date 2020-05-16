@@ -8,11 +8,6 @@
 
 <link href="lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
 
-@if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
-{
-    <a asp-action="Create" class="btn btn-outline-success btn-lg">Оформить новую покупку</a>
-}
-
 <h1 class="mb-3 text-center">История покупок</h1>
 
 <div class="table-responsive">
@@ -36,11 +31,11 @@
                 <th scope="col" data-sortable="true" data-filter-control="select" data-field="pharmName">
                     @Html.DisplayNameFor(model => model.Pharm.PharmName)
                 </th>
-                <th scope="col" data-sortable="true" data-filter-control="input" data-field="purchAmount">
-                    @Html.DisplayNameFor(model => model.PurchAmount)
-                </th>
                 <th scope="col" data-sortable="true" data-filter-control="select" data-field="purchDiscountPercent">
                     @Html.DisplayNameFor(model => model.PurchDiscountPercent)
+                </th>
+                <th scope="col" data-sortable="true" data-filter-control="input" data-field="amountDiscount">
+                    Итоговая сумма
                 </th>
                 <th></th>
             </tr>
@@ -59,10 +54,14 @@
                         @Html.DisplayFor(modelItem => item.Pharm.PharmName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PurchAmount) грн.
+                        @Html.DisplayFor(modelItem => item.PurchDiscountPercent) %
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PurchDiscountPercent) %
+                        @{
+                            var summ = item.PurchAmount * ((100 - item.PurchDiscountPercent) / 100);
+                        }
+
+                        @decimal.Round(summ, 2) грн.
                     </td>
                     <td>
                         <a class="btn btn-outline-info btn-block" asp-action="Details" asp-route-id="@item.PurchId">Подробнее</a>

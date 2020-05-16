@@ -47,8 +47,6 @@
                         @Html.DisplayFor(modelItem => item.CategMarkup) %
                     </td>
                     <td>
-                        @*<a class="btn btn-outline-info btn-block" asp-action="Details" asp-route-id="@item.FirmId">Подробнее</a>*@
-
                         @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
                         {
                             <a class="btn btn-outline-success btn-sm btn-block" asp-action="Edit" asp-route-id="@item.CategId">Изменить</a>

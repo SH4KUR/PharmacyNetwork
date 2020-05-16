@@ -51,7 +51,11 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.MedicalItem.MedItemId" class="btn btn-info btn-lg">Изменить</a> |
+    @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.MedicalItem.MedItemId" class="btn btn-info btn-lg">Изменить</a>
+    }
+
     <a asp-action="Index" class="btn btn-secondary btn-lg">Вернуться</a>
 </div>
 

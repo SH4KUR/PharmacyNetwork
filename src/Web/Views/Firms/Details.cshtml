@@ -1,4 +1,5 @@
-﻿@model PharmacyNetwork.ApplicationCore.Entities.Firm
+﻿@using PharmacyNetwork.ApplicationCore.Constants
+@model PharmacyNetwork.ApplicationCore.Entities.Firm
 
 @{
     ViewData["Title"] = "Детали о фирме";
@@ -33,6 +34,10 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.FirmId" class="btn btn-info btn-lg">Изменить</a> |
+    @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.FirmId" class="btn btn-info btn-lg">Изменить</a>
+    }
     <a asp-action="Index" class="btn btn-secondary btn-lg">Вернуться</a>
+
 </div>
