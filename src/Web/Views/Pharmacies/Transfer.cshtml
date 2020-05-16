@@ -1,0 +1,51 @@
+﻿@model PharmacyNetwork.Web.ViewModels.TransferViewModel
+
+@{
+    ViewData["Title"] = "Переместить товар между аптеками";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="mb-3 text-center">Перемещение товара между аптеками</h1>
+
+<h4 class="mb-3 text-center">Введите данные о переводе</h4>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="ConfirmTransfer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <h4>Из аптеки - @Model.Pharmacy.PharmName</h4>
+                <input type="hidden" asp-for="Pharmacy.PharmId" />
+            </div>
+            <div class="form-group">
+                <h4>Товар - @Model.MedicalItem.MedItemName</h4>
+                <input type="hidden" asp-for="MedicalItem.MedItemId" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Аптека в которую перевести</label>
+                <select asp-for="TransferPharmId" class="form-control" asp-items="@Model.Pharmacies"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransferItemCount">Количество (от 1 до @Model.MaxItemCount) = <output id="count">1</output></label>
+                <input type="range" class="form-control-range" asp-for="TransferItemCount" min="1" max="@Model.MaxItemCount" step="1"
+                       oninput="fun1()">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Подтвердить" class="btn btn-primary btn-lg" />|
+                <a asp-action="Details" asp-route-id="@Model.Pharmacy.PharmId" class="btn btn-secondary btn-lg">Вернуться</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        function fun1() {
+            var rng = document.getElementById('TransferItemCount');
+            var i1=document.getElementById('count');
+            i1.value=rng.value;
+        }
+    </script>
+}

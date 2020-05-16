@@ -14,9 +14,9 @@ namespace PharmacyNetwork.Web.Features.Incomes
     public class GetIncomesCreateViewModelHandler : IRequestHandler<GetIncomesCreateViewModel, CreateIncomeViewModel>
     {
         private readonly IAsyncRepository<MedicalItem> _medItemsRepository;
-        private readonly IAsyncRepository<Pharmacy> _pharmRepository;
+        private readonly IAsyncRepository<ApplicationCore.Entities.Pharmacy> _pharmRepository;
 
-        public GetIncomesCreateViewModelHandler(IAsyncRepository<Pharmacy> pharmRepository, IAsyncRepository<MedicalItem> medItemsRepository)
+        public GetIncomesCreateViewModelHandler(IAsyncRepository<ApplicationCore.Entities.Pharmacy> pharmRepository, IAsyncRepository<MedicalItem> medItemsRepository)
         {
             _pharmRepository = pharmRepository;
             _medItemsRepository = medItemsRepository;

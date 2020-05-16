@@ -1,4 +1,5 @@
-﻿@model PharmacyNetwork.ApplicationCore.Entities.Pharmacy
+﻿@using PharmacyNetwork.ApplicationCore.Constants
+@model PharmacyNetwork.Web.ViewModels.PharmacyViewModel
 
 @{
     ViewData["Title"] = "Детали о аптеке";
@@ -7,26 +8,96 @@
 
 <h1 class="mb-3 text-center">Детали о аптеке</h1>
 
-<h4 class="mb-3">@Html.DisplayFor(model => model.PharmName)</h4>
+<h4 class="mb-3">@Html.DisplayFor(model => model.Pharmacy.PharmName)</h4>
 
 <div>
     <dl class="row justify-content-center">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PharmName)
+            @Html.DisplayNameFor(model => model.Pharmacy.PharmName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PharmName)
+            @Html.DisplayFor(model => model.Pharmacy.PharmName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PharmAddress)
+            @Html.DisplayNameFor(model => model.Pharmacy.PharmAddress)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PharmAddress)
+            @Html.DisplayFor(model => model.Pharmacy.PharmAddress)
         </dd>
     </dl>
 </div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.PharmId" class="btn btn-info btn-lg">Изменить</a> |
+<div class="mt-4 mb-4">
+    <a asp-action="Edit" asp-route-id="@Model.Pharmacy.PharmId" class="btn btn-info btn-lg">Изменить</a> |
     <a asp-action="Index" class="btn btn-secondary btn-lg">Вернуться</a>
 </div>
+
+<link href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<h5 class="mb-3 mt-3 text-center">Список медицинских товаров в аптеке</h5>
+
+<div class="table-responsive">
+    <table data-toggle="table"
+           data-filter-control="true"
+           data-classes="table table-hover"
+           data-pagination="true"
+           data-pagination-loop="false"
+           data-page-list="[3, 10, 25, 50, 100, 200, All]"
+           data-locale="ru-RU">
+        <thead>
+            <tr>
+                <th scope="col" data-sortable="true" data-field="medItem">
+                    Медицинский товар
+                </th>
+                <th scope="col" data-sortable="true" data-field="medItemPrice">
+                    Цена за единицу
+                </th>
+                <th scope="col" data-sortable="true" data-field="count">
+                    Количество
+                </th>
+                <th scope="col" data-sortable="true" data-field="price">
+                    Сумма
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.MedicalItems)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MedItem.MedItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MedItem.MedItemPriceMarkup) грн.
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCount)
+                    </td>
+                    <td>
+                        @(item.MedItem.MedItemPriceMarkup * item.ItemCount) грн.
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info btn-sm btn-block" asp-action="Details" asp-controller="MedicalItems" asp-route-id="@item.MedItemId">Подробнее</a>
+
+                        @if (User.IsInRole(AuthorizationConstants.Roles.ADMINSTRATORS))
+                        {
+                            <form asp-action="Transfer">
+                                <input type="hidden" name="medItemId" value="@item.MedItemId" />
+                                <input type="hidden" name="pharmId" value="@item.PharmId" />
+                                <input type="submit" value="Переместить" class="btn btn-block btn-sm btn-outline-success" />
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="~/lib/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+}

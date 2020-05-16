@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,8 @@ using PharmacyNetwork.ApplicationCore.Constants;
 using PharmacyNetwork.ApplicationCore.Entities;
 using PharmacyNetwork.ApplicationCore.Interfaces;
 using PharmacyNetwork.Infrastructure.Data;
+using PharmacyNetwork.Web.Features.Pharmacy;
+using PharmacyNetwork.Web.ViewModels;
 
 namespace PharmacyNetwork.Web.Controllers
 {
@@ -17,10 +20,12 @@ namespace PharmacyNetwork.Web.Controllers
     public class PharmaciesController : Controller
     {
         private readonly IAsyncRepository<Pharmacy> _repository;
+        private readonly IMediator _mediator;
 
-        public PharmaciesController(IAsyncRepository<Pharmacy> repository)
+        public PharmaciesController(IAsyncRepository<Pharmacy> repository, IMediator mediator)
         {
             _repository = repository;
+            _mediator = mediator;
         }
 
         // GET: Pharmacies
@@ -38,7 +43,13 @@ namespace PharmacyNetwork.Web.Controllers
             var pharmacy = await _repository.GetByIdAsync(id);
             if (pharmacy == null) return NotFound();
 
-            return View(pharmacy);
+            var viewModel = new PharmacyViewModel()
+            {
+                Pharmacy = pharmacy,
+                MedicalItems = await _mediator.Send(new GetMedItemsListInPharm(pharmacy.PharmId))
+            };
+
+            return View(viewModel);
         }
 
         // GET: Pharmacies/Create
@@ -123,6 +134,23 @@ namespace PharmacyNetwork.Web.Controllers
         {
             var list = _repository.GetAllAsync().Result;
             return list.Any(e => e.PharmId == id);
+        }
+
+        public async Task<IActionResult> Transfer(int medItemId, int pharmId)
+        {
+            var viewModel = await _mediator.Send(new GetTransferViewModel(pharmId, medItemId));
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmTransfer(TransferViewModel transferViewModel)
+        {
+            var query = $"EXEC transfer_med_item_beetween_pharmacy " +
+                        $"{transferViewModel.Pharmacy.PharmId}, {transferViewModel.TransferPharmId}, {transferViewModel.MedicalItem.MedItemId}, {transferViewModel.TransferItemCount};";
+            
+            await _repository.ExecuteSqlRawAsync(query);
+
+            return RedirectToAction("Details", new {id = transferViewModel.Pharmacy.PharmId});
         }
     }
 }
