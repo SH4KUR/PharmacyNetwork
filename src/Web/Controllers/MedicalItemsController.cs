@@ -131,9 +131,11 @@ namespace PharmacyNetwork.Web.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
+            if (id == null) return NotFound();
             var medicalItem = await _repository.GetByIdAsync(id);
+            if (medicalItem == null) return NotFound();
             await _repository.DeleteAsync(medicalItem);
             return RedirectToAction(nameof(Index));
         }
