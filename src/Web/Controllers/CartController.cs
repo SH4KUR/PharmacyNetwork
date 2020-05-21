@@ -47,7 +47,7 @@ namespace PharmacyNetwork.Web.Controllers
 
             ClearCart();
 
-            return RedirectToAction("Index", "ReservedMedItems"); // TODO: REVIEW
+            return RedirectToAction("Index", "ReservedMedItems"); 
         }
 
         public IActionResult Reserve()
