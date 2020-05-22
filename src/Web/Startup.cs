@@ -71,6 +71,13 @@ namespace PharmacyNetwork.Web
 
             services.AddDistributedMemoryCache();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".PharmNet.Session";
