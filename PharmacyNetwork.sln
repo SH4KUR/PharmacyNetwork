@@ -22,9 +22,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EA57030A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{75EF2933-3A13-4C06-9871-BE0AC0CF8025}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{CD4E4A98-B4D4-43A9-B40C-5019E5FAABD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{CD4E4A98-B4D4-43A9-B40C-5019E5FAABD1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F7B05577-7BF6-44D6-99B2-11F90BB4DFD5} = {F7B05577-7BF6-44D6-99B2-11F90BB4DFD5}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{43BD4EC4-8492-49E4-B42D-803AE3C031B9}"
+	ProjectSection(SolutionItems) = preProject
+		doc\diagram.png = doc\diagram.png
 	EndProjectSection
 EndProject
 Global
