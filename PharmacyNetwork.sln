@@ -32,10 +32,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{43BD4EC4-849
 		doc\diagram.png = doc\diagram.png
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backup_db", "backup_db", "{43C5FC11-46C6-433D-B38B-10392C4A5AF5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db_backup", "db_backup", "{C28AEEB7-D6FB-4BAB-AAFC-17994797EC1A}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\УЧЕБА\II SEMESTR\BD_KP\DB_BackUp\PharmacyNetwork_BackUp_final_180520 = ..\..\..\УЧЕБА\II SEMESTR\BD_KP\DB_BackUp\PharmacyNetwork_BackUp_final_180520
-		..\..\..\УЧЕБА\II SEMESTR\BD_KP\DB_BackUp\PharmacyNetworkIdentity_BackUp_final_180520 = ..\..\..\УЧЕБА\II SEMESTR\BD_KP\DB_BackUp\PharmacyNetworkIdentity_BackUp_final_180520
+		backup_db\BackupDB.rar = backup_db\BackupDB.rar
 	EndProjectSection
 EndProject
 Global
