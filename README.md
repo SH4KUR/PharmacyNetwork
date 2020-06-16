@@ -24,4 +24,6 @@ The project uses such design patterns as Mediator, Specification, Repository, et
 
 Diagram of PharmacyNetworkDB [/doc/diagram.png](https://github.com/SH4KUR/PharmacyNetwork-ASP.NET_Core_MVC/blob/master/doc/diagram.png)
 
+[Archive](https://github.com/SH4KUR/PharmacyNetwork/blob/master/db_backup/BackupDB.rar) with backup of PharmacyNetwork and PharmacyNetwork.Identity databases.
+
 ![PharmacyNetworkDB Diagram](https://github.com/SH4KUR/PharmacyNetwork-ASP.NET_Core_MVC/blob/master/doc/diagram.png?raw=true)
