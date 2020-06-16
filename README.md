@@ -19,3 +19,9 @@ The project uses such design patterns as Mediator, Specification, Repository, et
 * [Bootstrap 4.4.1](https://getbootstrap.com/)
 * [Bootstrap Table 1.16.0](https://bootstrap-table.com/)
 * [xUnit](https://xunit.net/)
+
+# DB Diagram
+
+Diagram of PharmacyNetworkDB [/doc/diagram.png](https://github.com/SH4KUR/PharmacyNetwork-ASP.NET_Core_MVC/blob/master/doc/diagram.png)
+
+![PharmacyNetworkDB Diagram](https://github.com/SH4KUR/PharmacyNetwork-ASP.NET_Core_MVC/blob/master/doc/diagram.png?raw=true)
