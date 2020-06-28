@@ -27,3 +27,7 @@ Diagram of PharmacyNetworkDB [/doc/diagram.png](https://github.com/SH4KUR/Pharma
 [Archive](https://github.com/SH4KUR/PharmacyNetwork/blob/master/db_backup/BackupDB.rar) with backup of PharmacyNetwork and PharmacyNetwork.Identity databases.
 
 ![PharmacyNetworkDB Diagram](https://github.com/SH4KUR/PharmacyNetwork-ASP.NET_Core_MVC/blob/master/doc/diagram.png?raw=true)
+
+# LICENSE
+
+SH4KUR/PharmacyNetwork project is licensed with the [MIT License](https://github.com/SH4KUR/PharmacyNetwork/blob/master/LICENSE)
