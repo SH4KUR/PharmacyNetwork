@@ -37,7 +37,10 @@ namespace PharmacyNetwork.Web.Controllers
             if (id == null) return NotFound();
 
             var firm = await _repository.GetByIdAsync(id);
-            if (firm == null) return NotFound();
+            if (firm == null)
+            {
+                return NotFound();
+            }
 
             return View(firm);
         }
@@ -50,7 +53,10 @@ namespace PharmacyNetwork.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Firm firm)
         {
-            if (!ModelState.IsValid) return View(firm);
+            if (!ModelState.IsValid)
+            {
+                return View(firm);
+            }
 
             await _repository.AddAsync(firm);
             return RedirectToAction(nameof(Index));
@@ -63,7 +69,10 @@ namespace PharmacyNetwork.Web.Controllers
             if (id == null) return NotFound();
 
             var firm = await _repository.GetByIdAsync(id);
-            if (firm == null) return NotFound();
+            if (firm == null)
+            {
+                return NotFound();
+            }
 
             return View(firm);
         }
@@ -100,10 +109,16 @@ namespace PharmacyNetwork.Web.Controllers
         [Authorize(Roles = AuthorizationConstants.Roles.ADMINSTRATORS)]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             var firm = await _repository.GetByIdAsync(id);
-            if (firm == null) return NotFound();
+            if (firm == null)
+            {
+                return NotFound();
+            }
 
             return View(firm);
         }
