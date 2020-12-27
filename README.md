@@ -30,4 +30,4 @@ Diagram of PharmacyNetworkDB [/doc/diagram.png](https://github.com/SH4KUR/Pharma
 
 # LICENSE
 
-SH4KUR/PharmacyNetwork project is licensed with the [MIT License](https://github.com/SH4KUR/PharmacyNetwork/blob/master/LICENSE)
+SH4KUR/PharmacyNetwork project is licensed with the [MIT License](https://github.com/SH4KUR/PharmacyNetwork/blob/master/LICENSE).
